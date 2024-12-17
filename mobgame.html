@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Mob Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .game-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 80%;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .hint {
+            margin-top: 10px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<!--Navigation Menu-->
+<nav>  
+    <ul>
+        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="resume.html">Resume</a></li>
+        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="minecraft.html">Minecraft Guide</a></li>
+        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="mobgame.html">Minecraft Mob Guessing Game</a></li>
+    </ul>
+</nav>
+           
+<body>
+
+    <div class="game-container">
+        <h1>Minecraft Mob Guessing Game</h1>
+        <img id="mob-image" src="https://minecraft.gamepedia.com/media/minecraft.gamepedia.com/thumb/2/2b/Zombie_je_200px.png/250px-Zombie_je_200px.png" alt="Minecraft Mob">
+        <p id="mob-name">Guess the name of this mob!</p>
+        <input type="text" id="user-input" placeholder="Enter mob name..." />
+        <button onclick="checkAnswer()">Submit Guess</button>
+        <div class="result" id="result"></div>
+        <div class="hint" id="hint"></div>
+    </div>
+
+    <script>
+        // Define the mobs and their image URLs
+        const mobs = [
+            { name: "Zombie", image: "https://atlas-content-cdn.pixelsquid.com/stock-images/minecraft-zombie-w1LVvw1-600.jpg" },
+            { name: "Creeper", image: "https://atlas-content-cdn.pixelsquid.com/stock-images/minecraft-creeper-a8lMmZA-600.jpg" },
+            { name: "Enderman", image: "https://atlas-content-cdn.pixelsquid.com/stock-images/minecraft-enderman-Wy0wqyD-600.jpg" },
+            { name: "Skeleton", image: "https://wallpapers.com/images/hd/minecraft-skeleton-900-x-900-wallpaper-md45v6fob2wg0lgl.jpg" },
+            { name: "Spider", image: "https://atlas-content-cdn.pixelsquid.com/stock-images/minecraft-spider-DxXwqQ6-600.jpg" },
+            { name: "Ghast", image: "https://www.pngkey.com/png/detail/370-3708947_mytiibl-minecraft-png-images-ghast.png" }
+        ];
+
+        // Pick a random mob
+        let currentMob = mobs[Math.floor(Math.random() * mobs.length)];
+
+        // Display the mob image
+        document.getElementById("mob-image").src = currentMob.image;
+        document.getElementById("mob-name").innerText = "Guess the name of this mob!";
+
+        // Function to check the user's answer
+        function checkAnswer() {
+            const userInput = document.getElementById("user-input").value.trim().toLowerCase();
+            const resultElement = document.getElementById("result");
+            const hintElement = document.getElementById("hint");
+
+            // If the guess is correct
+            if (userInput === currentMob.name.toLowerCase()) {
+                resultElement.innerText = "Correct! Well done!";
+                resultElement.style.color = "green";
+                hintElement.innerText = "";
+                setTimeout(resetGame, 2000);
+            } else {
+                resultElement.innerText = "Incorrect. Try again!";
+                resultElement.style.color = "red";
+                hintElement.innerText = "Hint: The mob is a hostile creature.";
+            }
+        }
+
+        // Function to reset the game with a new mob
+        function resetGame() {
+            currentMob = mobs[Math.floor(Math.random() * mobs.length)];
+            document.getElementById("mob-image").src = currentMob.image;
+            document.getElementById("user-input").value = "";
+            document.getElementById("result").innerText = "";
+            document.getElementById("hint").innerText = "";
+        }
+    </script>
+</body>
+</html>
